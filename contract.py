@@ -11,7 +11,7 @@ api_key = st.text_input('OpenAI API Key', '', type='password')
 
 # Get user inputs
 #text_input = st.text_input('Query', '')
-text_input = st.text_area('Query', height=50)
+text_input = st.text_area('Query')
 img_input = st.file_uploader('Source Contract Document (pdf)', type="pdf", accept_multiple_files=True)
 
 # Send API request
