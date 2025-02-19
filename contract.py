@@ -11,7 +11,7 @@ st.markdown('# Construction Contract Document Administration')
 api_key = st.text_input('OpenAI API Key', '', type='password')
 
 # Get user inputs
-#text_input = st.text_input('Query', '')
+#text_input = st.text_input('Document Query', '')
 text_input = st.text_area('Query', height=20)
 img_input = st.file_uploader('Source Contract Document (pdf)', type="pdf", accept_multiple_files=True)
 
