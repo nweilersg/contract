@@ -13,7 +13,7 @@ api_key = st.text_input('OpenAI API Key', '', type='password')
 # Get user inputs
 #text_input = st.text_input('Document Query', '')
 text_input = st.text_area('Document Query', height=20)
-img_input = st.file_uploader('Source Contract Document (pdf)', type="pdf", accept_multiple_files=True)
+fn_input = st.file_uploader('Source Contract Document (pdf)', type="pdf", accept_multiple_files=True)
 
 # Send API request
 if st.button('Send'):
@@ -29,11 +29,16 @@ if st.button('Send'):
         f"""${text_input}
         """                       
         })
-    for img in img_input:
-        file_type = img.name.split('.')[-1].lower()
+
+    if not fn_input:
+        st.warning('Source contract document?')
+        st.stop()
+        
+    for fname in fn_input:
+        file_type = fname.name.split('.')[-1].lower()
         if file_type in ['pdf']:
             text = ''
-            with pdfplumber.open(BytesIO(img.read())) as pdf:
+            with pdfplumber.open(BytesIO(fname.read())) as pdf:
                 for page in pdf.pages:
                     text = page.extract_text()
                     print(len(text))
