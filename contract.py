@@ -4,14 +4,14 @@ from io import BytesIO
 import base64
 import pdfplumber
 
-st.set_page_config(page_title='Construction Contract Risk Assessment and Renegotiation', page_icon='👁️')
+st.set_page_config(page_title='Construction Contract Risk Assessment and Renegotiation', page_icon='ðŸ‘ï¸')
 
 st.markdown('# Construction Contract Risk Assessment and Renegotiation')
 api_key = st.text_input('OpenAI API Key', '', type='password')
 
 # Get user inputs
-text_input = st.text_input('Project state or country', '')
-img_input = st.file_uploader('Images', accept_multiple_files=True)
+text_input = st.text_input('Query', '')
+img_input = st.file_uploader('Source Contract Document (pdf)', type="pdf", accept_multiple_files=True)
 
 # Send API request
 if st.button('Send'):
@@ -19,7 +19,7 @@ if st.button('Send'):
         st.warning('API Key required')
         st.stop()
     if not (text_input or img_input):
-        st.warning('You can\'t just send nothing!')
+        st.warning('What is your query!')
         st.stop()
     msg = {'role': 'user', 'content': []}
     if text_input:
@@ -32,33 +32,21 @@ if st.button('Send'):
         })
     for img in img_input:
         file_type = img.name.split('.')[-1].lower()
-        if file_type in ['png', 'jpg', 'jpeg', 'gif', 'webp', 'pdf']:
-            if file_type == 'pdf':
-                text = ''
-                with pdfplumber.open(BytesIO(img.read())) as pdf:
-                    for page in pdf.pages:
-                        text = page.extract_text()
-                        print(len(text))
-                        if text:
-                            msg['content'].append(
-                                {
-                                    'type': 'text',
-                                    'text': text
-                                }
-                            )
-            else:
-                encoded_img = base64.b64encode(img.read()).decode('utf-8')
-                msg['content'].append(
-                    {
-                        'type': 'image_url',
-                        'image_url': {
-                            'url': f'data:image/jpeg;base64,{encoded_img}',
-                            'detail': 'low'
-                        }
-                    }
-                )
+        if file_type in ['pdf']:
+            text = ''
+            with pdfplumber.open(BytesIO(img.read())) as pdf:
+                for page in pdf.pages:
+                    text = page.extract_text()
+                    print(len(text))
+                    if text:
+                        msg['content'].append(
+                            {
+                                'type': 'text',
+                                'text': text
+                            }
+                        )
         else:
-            st.warning('Only .jpg, .png, .gif, .webp, or .pdf are supported')
+            st.warning('Only PDF document supported')
             st.stop()
     
     client = OpenAI(api_key=api_key)
@@ -72,3 +60,4 @@ if st.button('Send'):
 
 
     st.write_stream(response)
+
