@@ -33,10 +33,12 @@ if st.button('Send'):
     if not fn_input:
         st.warning('Source contract document?')
         st.stop()
-        
+
+    i = 0
     for fname in fn_input:
         file_type = fname.name.split('.')[-1].lower()
         if file_type in ['pdf']:
+            i++
             text = ''
             with pdfplumber.open(BytesIO(fname.read())) as pdf:
                 for page in pdf.pages:
@@ -52,7 +54,11 @@ if st.button('Send'):
         else:
             st.warning('Only PDF document supported')
             st.stop()
-    
+
+    if i == 0:
+        st.warning('Source contract document2?')
+        st.stop()
+        
     client = OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model='gpt-4o',
