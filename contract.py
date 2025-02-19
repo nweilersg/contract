@@ -23,13 +23,7 @@ if st.button('Send'):
         st.stop()
     msg = {'role': 'user', 'content': []}
     if text_input:
-        msg['content'].append({'type': 'text', 'text': 
-        f"""
-        Considering the law in ${text_input} and general best practice for managing construction contract risk find the highest risk clauses and create a table summarising these risks.
-        In the table you must include the columns as risk type, risk description, risk severity (1-10), article number, page number. Write this table back to me.*
-        Below the table write a renegotiation letter outlining my concerns with the terms and with suggestions over fairer terms which we'd like to discuss further. Ignore any terms which would be non negotiable like compliance with local laws.*
-        """                       
-        })
+       msg['content'].append({'type': 'text', 'text': ${text_input}})
     for img in img_input:
         file_type = img.name.split('.')[-1].lower()
         if file_type in ['pdf']:
