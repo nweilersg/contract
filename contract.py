@@ -38,7 +38,7 @@ if st.button('Send'):
     for fname in fn_input:
         file_type = fname.name.split('.')[-1].lower()
         if file_type in ['pdf']:
-            i++
+            i += 1
             text = ''
             with pdfplumber.open(BytesIO(fname.read())) as pdf:
                 for page in pdf.pages:
