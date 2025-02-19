@@ -5,13 +5,7 @@ import base64
 import pdfplumber
 
 st.set_page_config(page_title='Construction Contract Document', page_icon='ðŸ‘ï¸')
-custom_html = """
-<div class="banner">
-    <img src="https://apex16.siacad.com/images/apex-logo.png" height="50px" alt="Banner Image">
-</div>
-"""
-# Display the custom HTML
-st.components.v1.html(custom_html)
+st.image("https://apex16.siacad.com/images/apex-logo.png")
 
 st.markdown('# Construction Contract Document Administration')
 api_key = st.text_input('OpenAI API Key', '', type='password')
