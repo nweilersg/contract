@@ -4,13 +4,14 @@ from io import BytesIO
 import base64
 import pdfplumber
 
-st.set_page_config(page_title='Construction Contract Risk Assessment and Renegotiation', page_icon='ðŸ‘ï¸')
+st.set_page_config(page_title='Construction Contract Document', page_icon='ðŸ‘ï¸')
 
-st.markdown('# Construction Contract Risk Assessment and Renegotiation')
+st.markdown('# Construction Contract Document Administration')
 api_key = st.text_input('OpenAI API Key', '', type='password')
 
 # Get user inputs
-text_input = st.text_input('Query', '')
+#text_input = st.text_input('Query', '')
+text_input = st.text_area('Query', height=50)
 img_input = st.file_uploader('Source Contract Document (pdf)', type="pdf", accept_multiple_files=True)
 
 # Send API request
