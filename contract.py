@@ -23,7 +23,10 @@ if st.button('Send'):
         st.stop()
     msg = {'role': 'user', 'content': []}
     if text_input:
-       msg['content'].append({'type': 'text', 'text': ${text_input}})
+       msg['content'].append({'type': 'text', 'text': 
+        f"""${text_input}
+        """                       
+        })
     for img in img_input:
         file_type = img.name.split('.')[-1].lower()
         if file_type in ['pdf']:
