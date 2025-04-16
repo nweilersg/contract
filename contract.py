@@ -8,7 +8,7 @@ st.set_page_config(page_title='Construction Contract Document', page_icon='ðŸ�
 st.image("https://apex16.siacad.com/images/apex-logo.png", width=100,)
 
 st.markdown('# Construction Contract Document Administration')
-api_key = st.text_input('OpenAI API Key', '', type='password')
+api_key = st.text_input('OpenAI/DeepSeek API Key', '', type='password')
 
 # Get user inputs
 #text_input = st.text_input('Document Query', '')
